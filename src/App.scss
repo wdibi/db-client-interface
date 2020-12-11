@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap");
+
+.root {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 275px;
+  line-height: 300px;
+  color: #ffffff;
+  margin-top: 5vh;
+  -webkit-text-stroke: 5px rgba(39, 200, 210, 0.3);
+}
+
+.homeButton {
+  flex-grow: 1;
+  padding: 10px 25px 10px 25px;
+  margin-top: 6vh;
+  margin-bottom: 10vh;
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: lighter;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.btn-custom {
+  background-color: #27c8d2;
+  border: #27c8d2;
+  color: #ffffff;
+}
+
+.btn-custom:hover {
+  background-color: #27c8d2;
+  border: #27c8d2;
+  color: #ffffff;
+}
+
+.card-footer {
+  height: 55px;
+}
+
+.vote-text {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.center {
+  text-align: center;
+}

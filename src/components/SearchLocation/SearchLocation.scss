@@ -1,0 +1,35 @@
+i.fa.fa-compass {
+  font-size: 35px;
+}
+.location-search-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+.autocomplete-dropdown-container {
+  display: none;
+  &.show {
+    display: block;
+    position: absolute;
+    top: 55px;
+    z-index: 1000;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 2px;
+  }
+  .suggestion-item {
+    border-top: 1px solid grey;
+    padding: 5px 10px;
+    cursor: "pointer";
+    &:first-child {
+      border: none;
+    }
+    &:active {
+      background-color: #eee;
+    }
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}
