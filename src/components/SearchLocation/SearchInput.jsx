@@ -14,7 +14,9 @@ export default function SearchInput({ setCoord }) {
     const response = await Geocode.fromAddress(value)
     console.log(response.results[0].geometry.location)
     setAddress(value)
-    setCoord(response.results[0].geometry.location)
+    setCoord(prev => {
+      return {...prev, ...response.results[0].geometry.location}
+    })
   }
 
   return (

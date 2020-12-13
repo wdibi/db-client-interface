@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react"
-import CrimeList from "../components/crime/CrimeList"
+import ConstructionList from "../components/construction/ConstructionList"
 import { Container } from "react-bootstrap"
 import AppSpinner from "../components/AppSpinner"
 import SearchLocation from "../components/SearchLocation/SearchLocation"
 import useFetchData from "../hooks/useFetchData"
-import CommonMapTest from '../components/common/CommonMapTest'
 
 let options = {
   enableHighAccuracy: true,
   maximumAge: 0,
 }
 export default function Home() {
-  const [coord, setCoord] = useState({routeName: "crimes", lat: "", lng: "" })
+  const [coord, setCoord] = useState({routeName: "constructions", lat: "", lng: "" })
   const [data, loading, error] = useFetchData(coord)
   console.log("coord", loading)
 
@@ -20,7 +19,7 @@ export default function Home() {
     navigator.geolocation.getCurrentPosition(
       async  (position) => {
         setCoord({
-          routeName: "streetlights",
+          routeName: "construction",
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         });
@@ -29,11 +28,7 @@ export default function Home() {
       options
     )
   }
-
   useEffect(() => {
-    console.log("api")
-    console.log(coord)
-
       if (!coord.lat) {
         setToUsersCurrentLocation()
       }
@@ -45,16 +40,7 @@ export default function Home() {
         setCoord={setCoord}
         setToUsersCurrentLocation={setToUsersCurrentLocation}
       />
-      <CommonMapTest 
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
-          loadingElement={<div style={{ height: `400px` }} />}
-          containerElement={<div style={{ height: `400px` }} />}
-          mapElement={<div style={{ height: `400px`, position: "relative" }} />}
-      />
-    <div >
-    {loading ? <AppSpinner /> : <CrimeList crimes={data} />}
-    </div>
-
+      {loading ? <AppSpinner /> : <ConstructionList constructions={data} />}
     </Container>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   withGoogleMap,
   withScriptjs,
@@ -7,11 +7,15 @@ import {
   InfoWindow,
 } from 'react-google-maps'
 
-function Map({ data }) {
+function Map() {
   const [infoBoxOpen, setInfoBoxOpen] = useState(false)
   const onMarkerClick = () => {
     setInfoBoxOpen(true)
   }
+
+  useEffect(()=> {
+    
+  },[])
 
   return (
     <GoogleMap

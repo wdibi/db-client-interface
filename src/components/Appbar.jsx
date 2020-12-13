@@ -25,7 +25,21 @@ function AppBar() {
           </Link>
         </Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link></Nav.Link>
+          <Nav.Link>
+          <Link to="/streetlight">
+            Street Lights
+          </Link>
+          </Nav.Link>
+          <Nav.Link>
+          <Link to="/construction">
+            Construction
+          </Link>
+          </Nav.Link>
+          <Nav.Link>
+          <Link to="/crimecode">
+            Crime Code
+          </Link>
+          </Nav.Link>
         </Nav>
       </Container>
     </Navbar>
