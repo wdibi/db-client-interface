@@ -3,7 +3,7 @@ import LightCard from "./LightCard"
 import { CardColumns } from "react-bootstrap"
 import AppSpinner from "./AppSpinner"
 
-export default function RestroomList({ lights }) {
+export default function LightList({ lights }) {
   const handleOnClick = (light) => {}
 
   if (!lights) {

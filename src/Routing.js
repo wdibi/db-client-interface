@@ -1,6 +1,6 @@
 import React from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import Home from "./pages/Home"
+import Crime from "./pages/Crime"
 import AppBar from "./components/Appbar"
 
 export default function Routing() {
@@ -10,8 +10,9 @@ export default function Routing() {
       <div>
         <Switch>
           <Route exact path="/">
-            <Home />
+          <Crime />       
           </Route>
+          <Route path="/crimes/:id"  />
         </Switch>
       </div>
     </Router>
