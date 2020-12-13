@@ -8,7 +8,7 @@ var options = {
   enableHighAccuracy: true,
   maximumAge: 0,
 }
-export default function Restroom() {
+export default function Home() {
   const [coord, setCoord] = useState({ lat: "", lng: "" })
   const [lights, setLigths] = useState([])
   let loading = true
@@ -18,10 +18,22 @@ export default function Restroom() {
     console.log(navigator.geolocation)
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        let lat = position.coords.latitude
+        let long = position.coords.longitude
         setCoord({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
+          lat: lat,
+          lng: long,
         })
+        fetch(
+          `http://localhost:8080/nitelite_api/crimes/crimes?lat=${String(
+            lat
+          )}&long=${String(long)}`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data)
+            setLigths(data)
+          })
       },
       (err) => console.log(err),
       options
