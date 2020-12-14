@@ -3,7 +3,7 @@ import CrimeCodeList from "../components/crimecode/CrimeCodeList"
 import { Container } from "react-bootstrap"
 import AppSpinner from "../components/AppSpinner"
 import CrimeCodeForm from '../components/crimecode/CrimeCodeForm'
-import {Context as CrimeCodeContext} from '../context/CrimeCodeContext'
+import {Context as StoreContext} from '../context/StoreContext'
 
 
 let options = {
@@ -12,7 +12,7 @@ let options = {
 }
 export default function Home() {
   const [coord, setCoord] = useState({routeName: "safety_score", lat: "", lng: "" })
-  const {state: {crimecodes}, fetchCrimeCodes} =  useContext(CrimeCodeContext)
+  const {state: {crimecodes}, fetchCrimeCodes} =  useContext(StoreContext)
   const [loading, setLoading] = useState(false)
   console.log("is loading", loading)
   console.log("crime codes: ", crimecodes)

@@ -20,7 +20,8 @@
     "react-google-places-autocomplete": "^2.2.1",
     "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "yarn": "^1.22.10"
   },
   "scripts": {
     "start": "react-scripts start",

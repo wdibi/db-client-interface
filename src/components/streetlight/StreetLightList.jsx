@@ -6,7 +6,7 @@ import AppSpinner from "../AppSpinner"
 
 export default function CrimeList({ streetLights }) {
   let history = useHistory()
-  console.log('in streetLight list')
+  console.log('in streetLight list: ', streetLights)
   const handleOnClick = (streetLight) => {
     console.log(streetLight)
     localStorage.setItem(streetLight._id, JSON.stringify(streetLight));
@@ -21,7 +21,7 @@ export default function CrimeList({ streetLights }) {
     <CardColumns>
       {streetLights &&
         streetLights.map((streetLight) => (
-          <StreetLightCard handleOnClick={() => handleOnClick(streetLight)} streetLight={streetLight} />
+          <StreetLightCard key={streetLight._id} handleOnClick={() => handleOnClick(streetLight)} streetLight={streetLight} />
         ))}
     </CardColumns>
   )

@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {Form, Col, Button} from 'react-bootstrap'
-import {Context as CrimeCodeContext} from '../../context/CrimeCodeContext'
+import {Context as StoreContext} from '../../context/StoreContext'
 
 
 export default function CrimeCodeForm(){
-    const {createCrimeCodes} = useContext(CrimeCodeContext)
+    const {createCrimeCodes} = useContext(StoreContext)
     const [code, setCode] = useState("")
     const [description, setDescription] = useState("")
 

@@ -1,10 +1,10 @@
 import React, {useContext} from "react"
 import { Card, Button } from "react-bootstrap"
-import {Context as CrimeCodeContext} from '../../context/CrimeCodeContext'
+import {Context as StoreContext} from '../../context/StoreContext'
 
 
 export default function CrimeCard({ handleOnClick, crimeCode}) {
-  const {deleteCrimeCodes} = useContext(CrimeCodeContext)
+  const {deleteCrimeCodes} = useContext(StoreContext)
   let {_id, code, description} = crimeCode
 
   return (

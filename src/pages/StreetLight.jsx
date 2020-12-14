@@ -13,7 +13,7 @@ let options = {
 export default function Home() {
   const [coord, setCoord] = useState({routeName: "streetlights", lat: "", lng: "" })
   const [data, loading, error] = useFetchData(coord)
-  console.log("coord", loading)
+  console.log("coord", loading, data)
 
   const setToUsersCurrentLocation = () => {
     console.log(navigator.geolocation)
@@ -45,14 +45,14 @@ export default function Home() {
       {loading ? <AppSpinner /> : (     
       <>
           <CommonMap 
-          data={data}
-          center={{lat: data[0].lat, lng: data[0].lng}}
+          data={data.map((item) => ({ lat: item._id[0], lng: item._id[1]}))}
+          center={{lat: data[0]._id[0], lng: data[0]._id[1]}}
           googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
           loadingElement={<div style={{ height: `400px` }} />}
           containerElement={<div style={{ height: `400px` }} />}
           mapElement={<div style={{ height: `400px`, position: "relative" }} />}
         />
-        <StreetLightList streetLights={data} />
+        {/* <StreetLightList streetLights={data} /> */}
       </>
       )
       }
