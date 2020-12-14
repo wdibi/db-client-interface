@@ -49,7 +49,7 @@ export default function Home() {
       <>
           <CommonMap 
           data={data}
-          center={{lat: data[0].lat, lng: data[0].lng}}
+          center={{lat: data[0].lat, lng: data[1].lng}}
           googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
           loadingElement={<div style={{ height: `400px` }} />}
           containerElement={<div style={{ height: `400px` }} />}

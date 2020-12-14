@@ -20,8 +20,8 @@ export default function CrimeList({ streetLights }) {
   return (
     <CardColumns>
       {streetLights &&
-        streetLights.map((streetLight) => (
-          <StreetLightCard key={streetLight._id} handleOnClick={() => handleOnClick(streetLight)} streetLight={streetLight} />
+        streetLights.map((streetLight, index) => (
+          <StreetLightCard key={index} handleOnClick={() => handleOnClick(streetLight)} streetLight={streetLight} />
         ))}
     </CardColumns>
   )

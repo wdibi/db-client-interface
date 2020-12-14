@@ -17,7 +17,7 @@ function Map({data, center}) {
 
   useEffect(()=> {
     setPositions(data)
-  },[data, setPositions])
+  },[])
 
   if(!data) {
     console.log("recieving data", data)
@@ -31,7 +31,7 @@ function Map({data, center}) {
     >
       { positions && positions.map((pos, index ) => (
       <Marker
-      key={pos._id}
+      key={index}
       onClick={onMarkerClick}
       position={{
         lat: pos.lat,

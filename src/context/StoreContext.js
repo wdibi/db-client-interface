@@ -5,19 +5,31 @@ import createDataContext from "./createDataContext"
 const FETCH_CRIME_CODE = "FETCH_CRIME_CODE"
 const DELETE_CRIME_CODE = "DELETE_CRIME_CODE"
 const CREATE_CRIME_CODE = "CREATE_CRIME_CODE"
+const FETCH_STREET_LIGHTS = "FETCH_STREET_LIGHTS"
 
 
 const initialState = {
   crimecodes: [],
+  streetlights: []
 }
 
-const CrimeCodeReducer = (state = initialState, action) => {
+const storeReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_CRIME_CODE:
-        console.log("in reducer: ", state, action.crimecodes)
+        console.log("in reducer crimecodes: ",  action.crimecodes)
       return {
         ...state,
         crimecodes: action.crimecodes
+      }
+    case FETCH_STREET_LIGHTS:
+        console.log("in reducer streetlights: ",  action.streetlights)
+      return {
+        ...state,
+        streetlights: action.streetlights.map((item) => {
+          console.log(item._id)
+          let coord = item._id
+          return { lat: coord[1], lng: coord[0]}
+        })
       }
     case DELETE_CRIME_CODE:
       return {
@@ -76,6 +88,19 @@ const fetchCrimeCodes = (dispatch) => async ({ lat, lng }) => {
       } catch(err){
         console.log(err)        
       }
+}
+const fetchStreetLights = (dispatch) => async ({ lat, lng }) => {
+    try {
+        const response = await fetch(`http://localhost:8080/nitelite_api/streetlights?lat=${lat}&lng=${lng}`, {
+          method: 'GET',
+          headers: {'Content-Type': 'application/json'}
+        })
+        const data = await response.json()
+        console.log("this is data:" , lng, lat, data)
+        dispatch({ type: FETCH_STREET_LIGHTS, streetlights: data })
+      } catch(err){
+        console.log(err)        
+      }
 
 }
 
@@ -84,11 +109,12 @@ const fetchCrimeCodes = (dispatch) => async ({ lat, lng }) => {
 
 
 export const { Provider, Context } = createDataContext(
-    CrimeCodeReducer,
+    storeReducer,
   {
     createCrimeCodes,
     deleteCrimeCodes,
     fetchCrimeCodes, 
+    fetchStreetLights,
   },
   initialState
 )
