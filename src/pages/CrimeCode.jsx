@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import CrimeCodeList from "../components/crimecode/CrimeCodeList"
 import { Container } from "react-bootstrap"
 import AppSpinner from "../components/AppSpinner"
-import SearchLocation from "../components/SearchLocation/SearchLocation"
-import useFetchData from "../hooks/useFetchData"
+import CrimeCodeForm from '../components/crimecode/CrimeCodeForm'
+import {Context as CrimeCodeContext} from '../context/CrimeCodeContext'
+
 
 let options = {
   enableHighAccuracy: true,
@@ -11,8 +12,10 @@ let options = {
 }
 export default function Home() {
   const [coord, setCoord] = useState({routeName: "safety_score", lat: "", lng: "" })
-  const [data, loading, error] = useFetchData(coord)
-  console.log("coord", loading)
+  const {state: {crimecodes}, fetchCrimeCodes} =  useContext(CrimeCodeContext)
+  const [loading, setLoading] = useState(false)
+  console.log("is loading", loading)
+  console.log("crime codes: ", crimecodes)
 
   const setToUsersCurrentLocation = () => {
     console.log(navigator.geolocation)
@@ -29,18 +32,22 @@ export default function Home() {
     )
   }
   useEffect(() => {
-      if (!coord.lat) {
-        setToUsersCurrentLocation()
-      }
-  }, [data])
+      setToUsersCurrentLocation()
+  }, [])
+
+  useEffect(() => {
+    async function callee() {
+      await fetchCrimeCodes(coord)
+    } 
+    callee()   
+    setLoading(false)
+    console.log('this is after the fetch')
+  }, [])
 
   return (
     <Container>
-      <SearchLocation
-        setCoord={setCoord}
-        setToUsersCurrentLocation={setToUsersCurrentLocation}
-      />
-      {loading ? <AppSpinner /> : <CrimeCodeList crimeCodes={data} />}
+      <CrimeCodeForm />
+      {loading || !crimecodes ? <AppSpinner /> : <CrimeCodeList crimeCodes={crimecodes}  />}
     </Container>
   )
 }

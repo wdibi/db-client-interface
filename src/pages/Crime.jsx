@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap"
 import AppSpinner from "../components/AppSpinner"
 import SearchLocation from "../components/SearchLocation/SearchLocation"
 import useFetchData from "../hooks/useFetchData"
-import CommonMapTest from '../components/common/CommonMapTest'
+import CommonMap from '../components/common/CommonMap'
 
 let options = {
   enableHighAccuracy: true,
@@ -20,7 +20,6 @@ export default function Home() {
     navigator.geolocation.getCurrentPosition(
       async  (position) => {
         setCoord({
-          routeName: "streetlights",
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         });
@@ -33,7 +32,6 @@ export default function Home() {
   useEffect(() => {
     console.log("api")
     console.log(coord)
-
       if (!coord.lat) {
         setToUsersCurrentLocation()
       }
@@ -45,14 +43,22 @@ export default function Home() {
         setCoord={setCoord}
         setToUsersCurrentLocation={setToUsersCurrentLocation}
       />
-      <CommonMapTest 
+
+    <div >
+    {loading ? <AppSpinner /> : (
+      <>
+          <CommonMap 
+          data={data}
+          center={{lat: data[0].lat, lng: data[0].lng}}
           googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
           loadingElement={<div style={{ height: `400px` }} />}
           containerElement={<div style={{ height: `400px` }} />}
           mapElement={<div style={{ height: `400px`, position: "relative" }} />}
       />
-    <div >
-    {loading ? <AppSpinner /> : <CrimeList crimes={data} />}
+      <CrimeList crimes={data}/>
+    </>
+    )
+    }
     </div>
 
     </Container>

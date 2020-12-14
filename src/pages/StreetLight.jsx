@@ -4,6 +4,7 @@ import { Container } from "react-bootstrap"
 import AppSpinner from "../components/AppSpinner"
 import SearchLocation from "../components/SearchLocation/SearchLocation"
 import useFetchData from "../hooks/useFetchData"
+import CommonMap from '../components/common/CommonMap'
 
 let options = {
   enableHighAccuracy: true,
@@ -41,7 +42,20 @@ export default function Home() {
         setToUsersCurrentLocation={setToUsersCurrentLocation}
       />
 
-      {loading ? <AppSpinner /> : <StreetLightList streetLights={data} />}
+      {loading ? <AppSpinner /> : (     
+      <>
+          <CommonMap 
+          data={data}
+          center={{lat: data[0].lat, lng: data[0].lng}}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
+          loadingElement={<div style={{ height: `400px` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `400px`, position: "relative" }} />}
+        />
+        <StreetLightList streetLights={data} />
+      </>
+      )
+      }
     </Container>
   )
 }

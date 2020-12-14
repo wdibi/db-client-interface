@@ -10,7 +10,7 @@ export default ({ routeName, lat, lng }) => {
       console.log("in use", lat, lng)
       async function fetchCall() {
         try {
-            const response = await fetch(`http://localhost:8080/nitelite_api/${routeName}?lat=${lat}&long=${lng}`, {
+            const response = await fetch(`http://localhost:8080/nitelite_api/${routeName}?lat=${lat}&lng=${lng}`, {
               method: 'GET',
               headers: {'Content-Type': 'application/json'}
             })

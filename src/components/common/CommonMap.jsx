@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import AppSpinner from "../AppSpinner"
 import {
   withGoogleMap,
   withScriptjs,
@@ -7,28 +8,38 @@ import {
   InfoWindow,
 } from 'react-google-maps'
 
-function Map() {
+function Map({data, center}) {
   const [infoBoxOpen, setInfoBoxOpen] = useState(false)
+  const [positions, setPositions] = useState([])
   const onMarkerClick = () => {
     setInfoBoxOpen(true)
   }
 
   useEffect(()=> {
-    
-  },[])
+    setPositions(data)
+  },[data, setPositions])
+
+  if(!data) {
+    console.log("recieving data", data)
+    return <AppSpinner/>
+  }
 
   return (
     <GoogleMap
-      defaultZoom={15}
-      defaultCenter={{ lat: data.latitude, lng: data.longitude }}
+      defaultZoom={11}
+      center={center}
     >
+      { positions && positions.map((pos, index ) => (
       <Marker
-        onClick={onMarkerClick}
-        position={{
-          lat: data.latitude,
-          lng: data.longitude,
-        }}
-      />
+      key={pos._id}
+      onClick={onMarkerClick}
+      position={{
+        lat: pos.lat,
+        lng: pos.lng,
+      }}
+    />
+      ))}
+
     </GoogleMap>
   )
 }
