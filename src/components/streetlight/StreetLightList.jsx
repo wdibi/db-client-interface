@@ -1,17 +1,10 @@
 import React from "react"
 import StreetLightCard from "./StreetLightCard"
-import { useHistory } from "react-router-dom";
 import { CardColumns } from "react-bootstrap"
 import AppSpinner from "../AppSpinner"
 
-export default function CrimeList({ streetLights }) {
-  let history = useHistory()
-  console.log('in streetLight list: ', streetLights)
-  const handleOnClick = (streetLight) => {
-    console.log(streetLight)
-    localStorage.setItem(streetLight._id, JSON.stringify(streetLight));
-    history.push(`/streetLight/${streetLight._id}`);
-  }
+export default function StreetLightList({ streetLights, handleOnClick }) {
+
 
 
   if (!streetLights) {
@@ -20,8 +13,8 @@ export default function CrimeList({ streetLights }) {
   return (
     <CardColumns>
       {streetLights &&
-        streetLights.map((streetLight, index) => (
-          <StreetLightCard key={index} handleOnClick={() => handleOnClick(streetLight)} streetLight={streetLight} />
+        streetLights.map((streetLight) => (
+          <StreetLightCard key={streetLight.id} handleOnClick={() => handleOnClick(streetLight)} streetLight={streetLight} />
         ))}
     </CardColumns>
   )

@@ -8,7 +8,7 @@ export default function CrimeCodeList({ crimeCodes }) {
   let history = useHistory()
   console.log('in crimeCode list', crimeCodes)
   const handleOnClick = (crimeCode) => {
-    // history.push(`/crimeCode/${crimeCode._id}`);
+    history.push(`/crimeCode/${crimeCode._id}`);
   }
 
 

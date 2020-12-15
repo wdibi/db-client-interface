@@ -20,14 +20,18 @@ export default function Routing() {
           <Route exact path="/streetlight">
             <StreetLight />       
           </Route>
-          <Route path="/streetlight/:id"  />
+          <Route path="/streetlight/:streetId"  > 
+            <StreetLight />  
+          </Route>
 
           <Route path="/construction/:id"  />
           <Route exact path="/construction">
             <Construction />       
           </Route>
 
-          <Route path="/crimecode/:id"  />
+          <Route path="/crimecode/:crimeCodeId">
+          <CrimeCode />   
+          </Route>
           <Route exact path="/crimecode">
             <CrimeCode />       
           </Route>

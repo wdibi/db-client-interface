@@ -9,7 +9,7 @@ export default function ConstructionCard({ handleOnClick, construction }) {
         <Card.Title>{permit_type}</Card.Title>
         <Card.Text></Card.Text>
         <Card.Text>
-         lat: {coordinates[0]} -  long: {coordinates[1]} miles
+        long: {coordinates[0]} - lat:  {coordinates[1]} miles
         </Card.Text>
       </Card.Body>
 

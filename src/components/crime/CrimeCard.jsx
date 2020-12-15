@@ -9,7 +9,7 @@ export default function CrimeCard({ handleOnClick, crime }) {
         <Card.Title>{crimeCode}</Card.Title>
         <Card.Text></Card.Text>
         <Card.Text>
-         lat: {coordinates[0]} -  long: {coordinates[1]} miles
+        long: {coordinates[0]} - lat:  {coordinates[1]} miles
         </Card.Text>
         <small className="text-muted">
         <p>Date Occured : {dateOccurred}</p>

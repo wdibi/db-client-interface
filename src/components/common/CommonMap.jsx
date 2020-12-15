@@ -17,7 +17,7 @@ function Map({data, center}) {
 
   useEffect(()=> {
     setPositions(data)
-  },[])
+  },[data])
 
   if(!data) {
     console.log("recieving data", data)
@@ -26,7 +26,7 @@ function Map({data, center}) {
 
   return (
     <GoogleMap
-      defaultZoom={11}
+      defaultZoom={17}
       center={center}
     >
       { positions && positions.map((pos, index ) => (

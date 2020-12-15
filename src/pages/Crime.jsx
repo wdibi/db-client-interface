@@ -11,7 +11,7 @@ let options = {
   maximumAge: 0,
 }
 export default function Home() {
-  const [coord, setCoord] = useState({routeName: "crimes", lat: "", lng: "" })
+  const [coord, setCoord] = useState({ lat: "", lng: "" })
   const [data, loading, error] = useFetchData(coord)
   console.log("coord", loading)
 

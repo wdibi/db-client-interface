@@ -1,11 +1,13 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import Geocode from "react-geocode"
-
 import PlacesAutocomplete from "react-places-autocomplete"
+import {Context as StoreContext} from '../../context/StoreContext'
+
 
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_KEY)
 
 export default function SearchInput({ setCoord }) {
+  const {  fetchStreetLights} =  useContext(StoreContext)
   const [address, setAddress] = useState("")
 
   const handleSelect = async (value) => {
@@ -13,6 +15,7 @@ export default function SearchInput({ setCoord }) {
     console.log(value)
     const response = await Geocode.fromAddress(value)
     console.log(response.results[0].geometry.location)
+    fetchStreetLights(response.results[0].geometry.location)
     setAddress(value)
     setCoord(prev => {
       return {...prev, ...response.results[0].geometry.location}
