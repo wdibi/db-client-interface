@@ -117,7 +117,7 @@ const updateCrimeCode = (dispatch) => async (data) => {
 
 const deleteCrimeCodes = (dispatch) => async (id) => {
     try{
-        const response = fetch(`http://localhost:8080/nitelite_api/safety_score/${id}`, {
+        const response = fetch(`http://localhost:8080/nitelite_api/crime_code/${id}`, {
           method: 'DELETE',
         })
       } catch(err) {
@@ -128,7 +128,7 @@ const deleteCrimeCodes = (dispatch) => async (id) => {
 }
 const createCrimeCodes = (dispatch) => async (data) => {
     try {
-        const response = await fetch(`http://localhost:8080/nitelite_api/safety_score`, {
+        const response = await fetch(`http://localhost:8080/nitelite_api/crime_code`, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(data)
@@ -175,7 +175,7 @@ const deleteStreetLight = (dispatch) => async (id) => {
 
 const fetchCrimeCodes = (dispatch) => async ({ lat, lng }) => {
     try {
-        const response = await fetch(`http://localhost:8080/nitelite_api/safety_score?lat=${lat}&lng=${lng}`, {
+        const response = await fetch(`http://localhost:8080/nitelite_api/crime_code?lat=${lat}&lng=${lng}`, {
           method: 'GET',
           headers: {'Content-Type': 'application/json'}
         })

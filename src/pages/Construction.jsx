@@ -36,11 +36,12 @@ export default function Home() {
 
   return (
     <Container>
-      <SearchLocation
+      {/* <SearchLocation
         setCoord={setCoord}
         setToUsersCurrentLocation={setToUsersCurrentLocation}
       />
-      {loading ? <AppSpinner /> : <ConstructionList constructions={data} />}
+      {loading ? <AppSpinner /> : <ConstructionList constructions={data} />} */}
+      <h1>This page is not currently implemented</h1>
     </Container>
   )
 }

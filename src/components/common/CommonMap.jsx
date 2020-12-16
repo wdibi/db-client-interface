@@ -27,7 +27,7 @@ function Map({data, center}) {
 
   return (
     <GoogleMap
-      defaultZoom={17}
+      defaultZoom={12}
       center={center}
     >
       { positions && positions.map((pos, index ) => (
