@@ -21,7 +21,7 @@ export default function CrimeList({ crimes }) {
     <CardColumns>
       {crimes &&
         crimes.map((crime) => (
-          <CrimeCard handleOnClick={() => handleOnClick(crime)} crime={crime} />
+          <CrimeCard key={crimes._id} handleOnClick={() => handleOnClick(crime)} crime={crime} />
         ))}
     </CardColumns>
   )

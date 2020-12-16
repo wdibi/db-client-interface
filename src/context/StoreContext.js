@@ -3,6 +3,7 @@ import createDataContext from "./createDataContext"
 
 
 const FETCH_CRIME_CODE = "FETCH_CRIME_CODE"
+const FETCH_CRIMES = "FETCH_CRIMES"
 const UPDATE_STREET_LIGHT = "UPDATE_STREET_LIGHT"
 const UPDATE_CRIME_CODE = "UPDATE_CRIME_CODE"
 const DELETE_CRIME_CODE = "DELETE_CRIME_CODE"
@@ -15,6 +16,7 @@ const CREATE_STREET_LIGHT = "CREATE_STREET_LIGHT"
 const initialState = {
   crimecodes: [],
   streetlights: [],
+  crimes: [],
 
 }
 
@@ -45,6 +47,11 @@ const storeReducer = (state = initialState, action) => {
       return {
         ...state,
         streetlights: action.streetlights
+      }
+    case FETCH_CRIMES:
+      return {
+        ...state,
+        crimes: action.crimes
       }
     case DELETE_CRIME_CODE:
       return {
@@ -193,6 +200,20 @@ const fetchStreetLights = (dispatch) => async ({ lat, lng }) => {
       }
 }
 
+const fetchCrimes = (dispatch) => async ({ lat, lng }) => {
+  try {
+      const response = await fetch(`http://localhost:8080/nitelite_api/crimes?lat=${lat}&lng=${lng}`, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+      })
+      const data = await response.json()
+      console.log("this is data:" , lng, lat, data)
+      dispatch({ type: FETCH_CRIMES, crimes: data })
+    } catch(err){
+      console.log(err)        
+    }
+}
+
 
 export const { Provider, Context } = createDataContext(
     storeReducer,
@@ -204,7 +225,8 @@ export const { Provider, Context } = createDataContext(
     deleteStreetLight,
     createStreetLight,
     updateStreetLight,
-    updateCrimeCode
+    updateCrimeCode,
+    fetchCrimes
 
   },
   initialState

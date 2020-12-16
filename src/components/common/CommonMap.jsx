@@ -17,6 +17,7 @@ function Map({data, center}) {
 
   useEffect(()=> {
     setPositions(data)
+    console.log(data)
   },[data])
 
   if(!data) {
