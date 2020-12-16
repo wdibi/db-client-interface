@@ -5,7 +5,7 @@ export default function CrimeCard({ handleOnClick, crime }) {
   let {crimeCode, dateOccurred, dateReported, id, location: {coordinates}, timeOccurred} = crime
   return (
     <Card key={crime._id} style={{ margin: "10px 0px" }} className="text-center">
-      <Card.Body className="card-body" onClick={() => handleOnClick(crime)}>
+      <Card.Body className="card-body" >
         <Card.Title>{crimeCode}</Card.Title>
         <Card.Text></Card.Text>
         <Card.Text>

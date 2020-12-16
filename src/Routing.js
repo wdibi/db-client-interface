@@ -2,6 +2,7 @@ import React from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Crime from "./pages/Crime"
 import CrimeCode from './pages/CrimeCode'
+import CrimeCodeTime from './pages/CrimeCodeTime'
 import Construction from './pages/Construction'
 import StreetLight from "./pages/StreetLight"
 import AppBar from "./components/Appbar"
@@ -28,7 +29,9 @@ export default function Routing() {
           <Route exact path="/construction">
             <Construction />       
           </Route>
-
+          <Route path="/crimecode/time">
+          <CrimeCodeTime />   
+          </Route>
           <Route path="/crimecode/:crimeCodeId">
           <CrimeCode />   
           </Route>

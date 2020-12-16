@@ -4,6 +4,7 @@ import { Container, Navbar, Nav, Button } from "react-bootstrap"
 import Logo from "../Logo.png"
 
 function AppBar() {
+  console.log("process env",process.env)
   return (
     <Navbar expand="lg">
       <Container
@@ -40,6 +41,12 @@ function AppBar() {
             Crime Code
           </Link>
           </Nav.Link>
+          <Nav.Link>
+          <Link to="/crimecode/time">
+            Crime Code Time
+          </Link>
+          </Nav.Link>
+
         </Nav>
       </Container>
     </Navbar>

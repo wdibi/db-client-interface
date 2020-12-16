@@ -4,12 +4,12 @@ import {Context as StoreContext} from '../../context/StoreContext'
 
 
 export default function CrimeCard({ handleOnClick, crimeCode}) {
-  const {deleteCrimeCodes, editCrimeCodes} = useContext(StoreContext)
+  const {deleteCrimeCodes} = useContext(StoreContext)
   let {_id, code, description} = crimeCode
 
   return (
     <Card key={_id} style={{ margin: "10px 0px" }} className="text-center">
-      <Card.Body className="card-body" onClick={() => handleOnClick(crimeCode)}>
+      <Card.Body className="card-body" >
         <Card.Title><span 
              onClick={handleOnClick} style={{position: "absolute" ,top: 10, left: 10, cursor: "pointer"}}>✏️</span>
         {code}</Card.Title>
@@ -17,7 +17,7 @@ export default function CrimeCard({ handleOnClick, crimeCode}) {
         <Card.Text>
          {description}
         </Card.Text>
-      <Card.Footer><Button onClick={() => deleteCrimeCodes(_id)} variant="outline-danger">Delete</Button></Card.Footer>
+      <Card.Footer><Button onClick={() => deleteCrimeCodes(code)} variant="outline-danger">Delete</Button></Card.Footer>
       </Card.Body>
 
     </Card>

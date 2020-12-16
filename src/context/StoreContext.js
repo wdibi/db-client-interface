@@ -1,9 +1,11 @@
 
 import createDataContext from "./createDataContext"
+import {baseURL} from '../api'
 
 
 const FETCH_CRIME_CODE = "FETCH_CRIME_CODE"
 const FETCH_CRIMES = "FETCH_CRIMES"
+const GET_AVG_TIME = "GET_AVG_TIME"
 const UPDATE_STREET_LIGHT = "UPDATE_STREET_LIGHT"
 const UPDATE_CRIME_CODE = "UPDATE_CRIME_CODE"
 const DELETE_CRIME_CODE = "DELETE_CRIME_CODE"
@@ -17,6 +19,7 @@ const initialState = {
   crimecodes: [],
   streetlights: [],
   crimes: [],
+  averagecrimecode: []
 
 }
 
@@ -53,10 +56,15 @@ const storeReducer = (state = initialState, action) => {
         ...state,
         crimes: action.crimes
       }
+    case GET_AVG_TIME:
+      return {
+        ...state,
+        averagecrimecode: action.data
+      }
     case DELETE_CRIME_CODE:
       return {
         ...state,
-        crimecodes: state.crimecodes.filter(({_id}) => _id !== action.id)
+        crimecodes: state.crimecodes.filter(({code}) => code !== action.id)
       }
     case DELETE_STREET_LIGHT:
       return {
@@ -73,10 +81,23 @@ const storeReducer = (state = initialState, action) => {
         ...state,
         streetlights: [...state.streetlights, action.streetlight]
       }
-  
     default:
       return state
   }
+}
+const getAverageTimeCrimeCode = (dispatch) => async (id, lng, lat) => { 
+    try {
+        const response = await fetch(`${baseURL}nitelite_api/crime_code/time`, {
+          method: 'GET',
+          headers: {'Content-Type': 'application/json'},
+        })
+        const returnData = await response.json()
+        console.log("this is data in context:" , returnData)
+        dispatch({ type: GET_AVG_TIME, data: returnData})
+      } catch(err){
+        console.log(err)        
+      }
+
 }
 const updateStreetLight = (dispatch) => async (id, lng, lat) => { 
   const updatedStreetLight = {
@@ -85,7 +106,7 @@ const updateStreetLight = (dispatch) => async (id, lng, lat) => {
   }
   console.log(updatedStreetLight)
     try {
-        const response = await fetch(`http://localhost:8080/nitelite_api/streetlights`, {
+        const response = await fetch(`${baseURL}nitelite_api/streetlights`, {
           method: 'PUT',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(updatedStreetLight)
@@ -101,7 +122,7 @@ const updateStreetLight = (dispatch) => async (id, lng, lat) => {
 const updateCrimeCode = (dispatch) => async (data) => { 
   console.log(data)
     try {
-        const response = await fetch(`http://localhost:8080/nitelite_api/streetlights`, {
+        const response = await fetch(`${baseURL}nitelite_api/crime_code`, {
           method: 'PUT',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(data)
@@ -117,7 +138,7 @@ const updateCrimeCode = (dispatch) => async (data) => {
 
 const deleteCrimeCodes = (dispatch) => async (id) => {
     try{
-        const response = fetch(`http://localhost:8080/nitelite_api/crime_code/${id}`, {
+        const response = fetch(`${baseURL}nitelite_api/crime_code/${id}`, {
           method: 'DELETE',
         })
       } catch(err) {
@@ -127,8 +148,9 @@ const deleteCrimeCodes = (dispatch) => async (id) => {
       dispatch({ type: DELETE_CRIME_CODE, id })
 }
 const createCrimeCodes = (dispatch) => async (data) => {
+  console.log("in create: ")
     try {
-        const response = await fetch(`http://localhost:8080/nitelite_api/crime_code`, {
+        const response = await fetch(`${baseURL}nitelite_api/crime_code`, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(data)
@@ -147,7 +169,7 @@ const createStreetLight = (dispatch) => async ({lng, lat, id}) => {
     location: { type: "Point", coordinates: [lng, lat] }
   }
     try {
-        const response = await fetch(`http://localhost:8080/nitelite_api/streetlights`, {
+        const response = await fetch(`${baseURL}nitelite_api/streetlights`, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(newStreetLight)
@@ -162,7 +184,7 @@ const createStreetLight = (dispatch) => async ({lng, lat, id}) => {
 const deleteStreetLight = (dispatch) => async (id) => {
   console.log(id)
   try{
-      const response = fetch(`http://localhost:8080/nitelite_api/streetlights/${id}`, {
+      const response = fetch(`${baseURL}nitelite_api/streetlights/${id}`, {
         method: 'DELETE',
       })
     } catch(err) {
@@ -175,7 +197,7 @@ const deleteStreetLight = (dispatch) => async (id) => {
 
 const fetchCrimeCodes = (dispatch) => async ({ lat, lng }) => {
     try {
-        const response = await fetch(`http://localhost:8080/nitelite_api/crime_code?lat=${lat}&lng=${lng}`, {
+        const response = await fetch(`${baseURL}nitelite_api/crime_code?lat=${lat}&lng=${lng}`, {
           method: 'GET',
           headers: {'Content-Type': 'application/json'}
         })
@@ -188,7 +210,7 @@ const fetchCrimeCodes = (dispatch) => async ({ lat, lng }) => {
 }
 const fetchStreetLights = (dispatch) => async ({ lat, lng }) => {
     try {
-        const response = await fetch(`http://localhost:8080/nitelite_api/streetlights?lat=${lat}&lng=${lng}`, {
+        const response = await fetch(`${baseURL}nitelite_api/streetlights?lat=${lat}&lng=${lng}`, {
           method: 'GET',
           headers: {'Content-Type': 'application/json'}
         })
@@ -202,7 +224,7 @@ const fetchStreetLights = (dispatch) => async ({ lat, lng }) => {
 
 const fetchCrimes = (dispatch) => async ({ lat, lng }) => {
   try {
-      const response = await fetch(`http://localhost:8080/nitelite_api/crimes?lat=${lat}&lng=${lng}`, {
+      const response = await fetch(`${baseURL}nitelite_api/crimes?lat=${lat}&lng=${lng}`, {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
       })
@@ -226,7 +248,8 @@ export const { Provider, Context } = createDataContext(
     createStreetLight,
     updateStreetLight,
     updateCrimeCode,
-    fetchCrimes
+    fetchCrimes,
+    getAverageTimeCrimeCode
 
   },
   initialState
