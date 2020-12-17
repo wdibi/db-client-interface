@@ -1,16 +1,17 @@
-import React from "react"
-import CrimeCodeCard from "./CrimeCodeCard"
-import { useHistory } from "react-router-dom";
-import { CardColumns } from "react-bootstrap"
-import AppSpinner from "../AppSpinner"
+/** @format */
+
+import React from 'react'
+import CrimeCodeCard from './CrimeCodeCard'
+import { useHistory } from 'react-router-dom'
+import { CardColumns } from 'react-bootstrap'
+import AppSpinner from '../AppSpinner'
 
 export default function CrimeCodeList({ crimeCodes }) {
   let history = useHistory()
   console.log('in crimeCode list', crimeCodes)
   const handleOnClick = (crimeCode) => {
-    history.push(`/crimeCode/${crimeCode._id}`);
+    history.push(`/crimeCode/${crimeCode._id}`)
   }
-
 
   if (!crimeCodes) {
     return <AppSpinner />
@@ -18,8 +19,12 @@ export default function CrimeCodeList({ crimeCodes }) {
   return (
     <CardColumns>
       {crimeCodes &&
-        crimeCodes.map((crimeCode) => (
-          <CrimeCodeCard key={crimeCodes._id} handleOnClick={() => handleOnClick(crimeCode)} crimeCode={crimeCode} />
+        crimeCodes.map((crimeCode, index) => (
+          <CrimeCodeCard
+            key={crimeCode._id}
+            handleOnClick={() => handleOnClick(crimeCode)}
+            crimeCode={crimeCode}
+          />
         ))}
     </CardColumns>
   )
