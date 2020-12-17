@@ -22,7 +22,7 @@ export default function StreetLightForm(){
         e.preventDefault()
         console.log("in form: ", lat, lng)
         if(!!streetId) {
-            updateStreetLight(lat, lng, id)
+            updateStreetLight({streetlight, lat, lng, id})
             history.push("/streetLight")
         } else {
             await createStreetLight({id, lat, lng})
